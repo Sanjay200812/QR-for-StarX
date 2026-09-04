@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #050505;
+  color: #ffffff;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+  overflow-x: hidden;
+}
+
+/* Custom concert spotlight lighting */
+.bg-stage-radial {
+  background: radial-gradient(
+    circle at 50% 12%,
+    rgba(225, 6, 0, 0.16) 0%,
+    rgba(169, 0, 0, 0.06) 35%,
+    rgba(5, 5, 5, 0) 75%
+  );
+}
+
+.bg-stage-spotlight {
+  background: conic-gradient(
+    from 180deg at 50% 0%,
+    transparent 42%,
+    rgba(225, 6, 0, 0.08) 48%,
+    rgba(255, 60, 60, 0.12) 50%,
+    rgba(225, 6, 0, 0.08) 52%,
+    transparent 58%
+  );
+}
+
+/* Subtle noise texture */
+.stage-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+/* Smooth custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090909;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e10600;
+}

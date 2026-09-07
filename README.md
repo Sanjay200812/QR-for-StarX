@@ -42,7 +42,7 @@ Open `src/config/starx.ts` and modify the values:
 ```typescript
 export const starxConfig = {
   brandName: "StarX Live",
-  tagline: "Music heals.",
+  tagline: "Lost in the noise, Found in the sound",
   location: "Hyderabad, Telangana, India",
 
   // Official Logo & Background Paths

@@ -34,9 +34,9 @@ export interface StarXConfig {
 export const starxConfig: StarXConfig = {
   brandName: "StarX Live",
 
-  tagline: "Music heals.",
+  tagline: "Lost in the noise, Found in the sound",
 
-  genreText: "Rock • Classic • Western • Live",
+  genreText: "Classic • Rock • Western",
 
   categoryLabel: "ROCK BAND",
 

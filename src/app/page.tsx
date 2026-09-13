@@ -143,7 +143,19 @@ export default function Home() {
               </motion.div>
             )}
 
-            {/* 4. WhatsApp */}
+            {/* 4. Official Poster */}
+            <motion.div variants={cardItemVariants}>
+              <SocialCard
+                title="Official Poster"
+                subtitle="View & Download"
+                onClick={() => setIsPosterModalOpen(true)}
+                ariaLabel="View and download StarX Live official poster"
+                iconContainerClass="bg-accent/15 border-accent/30 text-accent"
+                icon={<ImageIcon className="w-5 h-5" />}
+              />
+            </motion.div>
+
+            {/* 5. WhatsApp */}
             <motion.div variants={cardItemVariants}>
               <SocialCard
                 title="WhatsApp"
@@ -222,18 +234,6 @@ export default function Home() {
                 ariaLabel="Download StarX Live contact vCard"
                 iconContainerClass="bg-amber-500/15 border-amber-500/30 text-amber-400"
                 icon={<UserPlus className="w-5 h-5" />}
-              />
-            </motion.div>
-
-            {/* 10. Official Poster */}
-            <motion.div variants={cardItemVariants}>
-              <SocialCard
-                title="Official Poster"
-                subtitle="View & Download"
-                onClick={() => setIsPosterModalOpen(true)}
-                ariaLabel="View and download StarX Live official poster"
-                iconContainerClass="bg-accent/15 border-accent/30 text-accent"
-                icon={<ImageIcon className="w-5 h-5" />}
               />
             </motion.div>
           </motion.div>

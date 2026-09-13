@@ -10,6 +10,11 @@ export interface ContactNumber {
   value: string;
 }
 
+export interface PosterConfig {
+  image: string;
+  filename: string;
+}
+
 export interface StarXConfig {
   brandName: string;
   tagline: string;
@@ -30,6 +35,7 @@ export interface StarXConfig {
   whatsappMessage: string;
   emailSubject: string;
   emailBody: string;
+  poster: PosterConfig;
 }
 
 export const starxConfig: StarXConfig = {
@@ -106,4 +112,9 @@ export const starxConfig: StarXConfig = {
   emailSubject: "StarX Live Enquiry",
 
   emailBody: "Hi StarX Live,\n\nI'd like to know more about your live performances.",
+
+  poster: {
+    image: "/images/starx/starx-poster.jpg",
+    filename: "StarX-Live-Poster.jpg",
+  },
 };

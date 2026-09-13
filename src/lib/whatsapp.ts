@@ -1,13 +1,9 @@
-import { starxConfig } from "@/config/starx";
-
 /**
- * Generates a direct WhatsApp link with prefilled, URL-encoded message.
- * Supports both mobile and desktop browsers natively.
+ * Generates a direct WhatsApp link to an empty chat with the given phone number.
+ * Opens WhatsApp app on mobile or WhatsApp Web on desktop.
  */
-export function getWhatsAppUrl(rawPhone: string, customMessage?: string): string {
+export function getWhatsAppUrl(rawPhone: string): string {
   // Clean non-digits
   const cleanNumber = rawPhone.replace(/\D/g, "");
-  const message = customMessage ?? starxConfig.whatsappMessage;
-  const encodedMessage = encodeURIComponent(message);
-  return `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
+  return `https://wa.me/${cleanNumber}`;
 }

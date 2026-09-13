@@ -8,6 +8,7 @@ import {
   MapPin,
   UserPlus,
   Globe,
+  Image as ImageIcon,
 } from "lucide-react";
 import { starxConfig } from "@/config/starx";
 import { BackgroundEffects } from "@/components/BackgroundEffects";
@@ -16,6 +17,7 @@ import { BrandHeader } from "@/components/BrandHeader";
 import { SocialCard } from "@/components/SocialCard";
 import { ContactSelectorModal, ContactModalType } from "@/components/ContactSelectorModal";
 import { QRModal } from "@/components/QRModal";
+import { PosterModal } from "@/components/PosterModal";
 import { Toast } from "@/components/Toast";
 import { Footer } from "@/components/Footer";
 import { generateVCard } from "@/lib/vcard";
@@ -29,6 +31,7 @@ import {
 export default function Home() {
   const [contactModalType, setContactModalType] = useState<ContactModalType>(null);
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+  const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Computed location search link
@@ -221,6 +224,18 @@ export default function Home() {
                 icon={<UserPlus className="w-5 h-5" />}
               />
             </motion.div>
+
+            {/* 10. Official Poster */}
+            <motion.div variants={cardItemVariants}>
+              <SocialCard
+                title="Official Poster"
+                subtitle="View & Download"
+                onClick={() => setIsPosterModalOpen(true)}
+                ariaLabel="View and download StarX Live official poster"
+                iconContainerClass="bg-accent/15 border-accent/30 text-accent"
+                icon={<ImageIcon className="w-5 h-5" />}
+              />
+            </motion.div>
           </motion.div>
         </div>
 
@@ -239,6 +254,13 @@ export default function Home() {
       <QRModal
         isOpen={isQRModalOpen}
         onClose={() => setIsQRModalOpen(false)}
+      />
+
+      {/* Official Poster Modal */}
+      <PosterModal
+        isOpen={isPosterModalOpen}
+        onClose={() => setIsPosterModalOpen(false)}
+        onShowToast={showToast}
       />
 
       {/* Floating Action Toast */}

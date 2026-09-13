@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { X, Phone, MessageSquare, ExternalLink } from "lucide-react";
+import { X, Phone, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { WhatsAppIcon } from "@/components/BrandIcons";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
@@ -110,18 +110,14 @@ export const ContactSelectorModal: React.FC<ContactSelectorModalProps> = ({
 
           {/* Contact Numbers List */}
           <div className="space-y-3 mt-4">
-            {starxConfig.phones.map((phone, idx) => {
+            {(isWhatsApp ? starxConfig.whatsapp : starxConfig.phones).map((item, idx) => {
               const href = isWhatsApp
-                ? getWhatsAppUrl(phone.value)
-                : `tel:${phone.value}`;
-
-              const label = isWhatsApp
-                ? `WhatsApp: +91 ${phone.display}`
-                : `Call: +91 ${phone.display}`;
+                ? getWhatsAppUrl(item.value)
+                : `tel:${item.value}`;
 
               return (
                 <a
-                  key={phone.value}
+                  key={item.value}
                   href={href}
                   target={isWhatsApp ? "_blank" : undefined}
                   rel={isWhatsApp ? "noopener noreferrer" : undefined}
@@ -143,11 +139,13 @@ export const ContactSelectorModal: React.FC<ContactSelectorModalProps> = ({
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-white group-hover:text-accent transition-colors">
-                        +91 {phone.display}
+                        +91 {item.display}
                       </p>
-                      <p className="text-[11px] text-text-muted">
-                        {isWhatsApp ? "Pre-filled enquiry ready" : "Direct phone line"}
-                      </p>
+                      {!isWhatsApp && (
+                        <p className="text-[11px] text-text-muted">
+                          Direct phone line
+                        </p>
+                      )}
                     </div>
                   </div>
 

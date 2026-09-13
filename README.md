@@ -102,7 +102,7 @@ The "Website" card will automatically appear in the list.
 - **Layered Readability**: Smooth darkening gradient and soft vignette ensures social buttons remain 100% readable over stage graphics.
 - **Instant QR Scan Access**: Zero external database dependencies or slow tracking blocking initial render.
 - **Interactive Multi-Number Selectors**:
-  - **WhatsApp**: Tap to choose between Number 1 (7337253898) or Number 2 (9390754569), with pre-filled enquiry message: *"Hi StarX Live, I'd like to know more about your live performances."*
+  - **WhatsApp**: Tap to choose between Number 1 (7337253898) or Number 2 (9390754569) to start a clean, direct WhatsApp chat.
   - **Call Us**: Tap to choose direct dialer action for either number.
 - **Dynamic In-App QR Modal**: Generates a high-contrast QR code pointing to the live URL of wherever the site is deployed (`window.location.href`).
 - **Native Web Share**: Uses Web Share API on mobile devices and provides seamless clipboard copy with toast feedback on desktop.

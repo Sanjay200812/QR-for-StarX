@@ -11,7 +11,9 @@ export interface ContactNumber {
 }
 
 export interface PosterConfig {
+  url: string;
   image: string;
+  downloadName: string;
   filename: string;
 }
 
@@ -32,7 +34,6 @@ export interface StarXConfig {
   logoUrl: string;
   backgroundImage: string;
   backgroundPcImage?: string;
-  whatsappMessage: string;
   emailSubject: string;
   emailBody: string;
   poster: PosterConfig;
@@ -107,14 +108,14 @@ export const starxConfig: StarXConfig = {
 
   locationUrl: "",
 
-  whatsappMessage: "Hi StarX Live, I'd like to know more about your live performances.",
-
   emailSubject: "StarX Live Enquiry",
 
   emailBody: "Hi StarX Live,\n\nI'd like to know more about your live performances.",
 
   poster: {
+    url: "/images/starx/starx-poster.jpg",
     image: "/images/starx/starx-poster.jpg",
+    downloadName: "StarX-Live-Poster.jpg",
     filename: "StarX-Live-Poster.jpg",
   },
 };

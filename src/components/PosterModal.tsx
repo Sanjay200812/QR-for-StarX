@@ -35,8 +35,29 @@ export const PosterModal: React.FC<PosterModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleDownloadClick = () => {
+  const posterUrl = starxConfig.poster.url || starxConfig.poster.image;
+  const posterDownloadName =
+    starxConfig.poster.downloadName || starxConfig.poster.filename;
+
+  const handleDownload = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     onShowToast?.("Poster download started");
+    try {
+      const response = await fetch(posterUrl);
+      if (response.ok) {
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const tempLink = document.createElement("a");
+        tempLink.href = blobUrl;
+        tempLink.download = posterDownloadName;
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
+        window.URL.revokeObjectURL(blobUrl);
+        e.preventDefault();
+      }
+    } catch {
+      // If fetch fails, allow standard <a> download to proceed
+    }
   };
 
   const handleShare = async () => {
@@ -47,16 +68,16 @@ export const PosterModal: React.FC<PosterModalProps> = ({
     const shareText = "StarX Live – Official Poster";
     const fullPosterUrl =
       typeof window !== "undefined"
-        ? `${window.location.origin}${starxConfig.poster.image}`
-        : starxConfig.poster.image;
+        ? `${window.location.origin}${posterUrl}`
+        : posterUrl;
 
     // Check if Web Share API is available
     if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
       // 1. Attempt file sharing if supported
       try {
-        const response = await fetch(starxConfig.poster.image);
+        const response = await fetch(posterUrl);
         const blob = await response.blob();
-        const file = new File([blob], starxConfig.poster.filename, {
+        const file = new File([blob], posterDownloadName, {
           type: blob.type || "image/jpeg",
         });
 
@@ -169,24 +190,25 @@ export const PosterModal: React.FC<PosterModalProps> = ({
             </button>
           </div>
 
-          {/* Poster Preview Container (object-fit: contain, full visibility, no cropping) */}
+          {/* Poster Preview Container (width: 100%, height: auto, object-fit: contain, no cropping, no stretching) */}
           <div className="relative my-3.5 flex-1 min-h-0 flex items-center justify-center rounded-2xl bg-black/50 border border-white/[0.08] p-2 sm:p-2.5 overflow-hidden shadow-inner">
             {/* Poster Image */}
             <img
-              src={starxConfig.poster.image}
+              src={posterUrl}
               alt="StarX Live Official Poster"
               loading="lazy"
-              className="max-h-[48vh] sm:max-h-[52vh] w-auto max-w-full object-contain rounded-xl shadow-lg select-none"
+              style={{ width: "100%", height: "auto", objectFit: "contain" }}
+              className="max-h-[48vh] sm:max-h-[52vh] w-full h-auto object-contain rounded-xl shadow-lg select-none"
             />
           </div>
 
-          {/* Actions */}
+          {/* Actions: View Full Poster, Download Poster, Close, Share Poster */}
           <div className="flex flex-col space-y-2 shrink-0 pt-1">
             {/* Primary Action: Download Poster */}
             <a
-              href={starxConfig.poster.image}
-              download={starxConfig.poster.filename}
-              onClick={handleDownloadClick}
+              href={posterUrl}
+              download={posterDownloadName}
+              onClick={handleDownload}
               className="w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-accent hover:bg-accent-hover text-white text-sm font-semibold shadow-lg shadow-accent/20 hover:shadow-accent/35 transition-all duration-200 active:scale-[0.98]"
             >
               <Download className="w-4 h-4" />
@@ -196,7 +218,7 @@ export const PosterModal: React.FC<PosterModalProps> = ({
             {/* Secondary Actions: View Full Poster & Share Poster */}
             <div className="grid grid-cols-2 gap-2">
               <a
-                href={starxConfig.poster.image}
+                href={posterUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] border border-white/10 hover:border-white/20 text-white text-xs font-medium transition-all duration-200 active:scale-[0.98]"
@@ -215,6 +237,15 @@ export const PosterModal: React.FC<PosterModalProps> = ({
                 <span>{isSharing ? "Sharing..." : "Share Poster"}</span>
               </button>
             </div>
+
+            {/* Explicit Close Button */}
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full py-2 px-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 hover:border-white/10 text-text-muted hover:text-white text-xs font-medium transition-all duration-200"
+            >
+              Close
+            </button>
           </div>
         </motion.div>
       </div>

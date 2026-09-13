@@ -90,7 +90,7 @@ export default function Home() {
         <BrandHeader />
 
         {/* Subtle Central Backdrop Panel */}
-        <div className="w-full bg-black/25 backdrop-blur-[2px] rounded-3xl p-1.5 sm:p-2 border border-white/[0.04] mt-2 shadow-2xl shadow-black/40">
+        <div className="w-full bg-black/25 backdrop-blur-[2px] rounded-3xl p-1.5 sm:p-2 border border-white/[0.04] mt-3 sm:mt-4 shadow-2xl shadow-black/40">
           {/* Vertical Social & Action Cards */}
           <motion.div
             variants={containerVariants}

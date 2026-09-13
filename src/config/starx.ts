@@ -34,16 +34,16 @@ export interface StarXConfig {
 export const starxConfig: StarXConfig = {
   brandName: "StarX Live",
 
-  tagline: "Lost in the noise, Found in the sound",
+  tagline: "Music heals.",
 
-  genreText: "Classic • Rock • Western",
+  genreText: "Rock • Classic • Western • Live",
 
   categoryLabel: "ROCK BAND",
 
   location: "Hyderabad, Telangana, India",
 
   // Official StarX Live Logo (with transparency)
-  logoUrl: "/images/starx/starx-logo.png",
+  logoUrl: "/images/starx/logo-no-bg.png",
 
   // Official StarX Live Concert Stage Background
   backgroundImage: "/images/starx/starx-background.webp",

@@ -15,37 +15,55 @@ async function updateImages() {
   }
 
   // 1. Process Logo
-  const logoSourcePath = path.join(sourceDir, 'StarX Logo.png');
-  console.log('Processing logo from:', logoSourcePath);
-  const logoMeta = await sharp(logoSourcePath).metadata();
-  console.log(`Logo metadata: ${logoMeta.width}x${logoMeta.height}`);
+  const transparentLogoFiles = [
+    path.join(sourceDir, 'logo no bg.png'),
+    path.join(sourceDir, 'Logo no BG.png'),
+    path.join(targetDir, 'Logo no BG.png'),
+    path.join(targetDir, 'logo-no-bg.png'),
+  ];
+  let transparentLogoPath = transparentLogoFiles.find((f) => fs.existsSync(f));
 
-  const cx = logoMeta.width / 2;
-  const cy = logoMeta.height / 2;
-  const radius = cx - 3; // cleanly clip outside black corners while keeping the full metallic bezel
+  if (transparentLogoPath) {
+    console.log('Processing official transparent logo from:', transparentLogoPath);
+    const logoMeta = await sharp(transparentLogoPath).metadata();
+    console.log(`Logo metadata: ${logoMeta.width}x${logoMeta.height}, hasAlpha: ${logoMeta.hasAlpha}`);
 
-  const circleSvg = Buffer.from(
-    `<svg width="${logoMeta.width}" height="${logoMeta.height}">
-      <circle cx="${cx}" cy="${cy}" r="${radius}" fill="white" />
-    </svg>`
-  );
+    const logoDestNoBg = path.join(targetDir, 'logo-no-bg.png');
+    const logoDestTransparent = path.join(targetDir, 'starx-logo-transparent.png');
+    const logoDestPng = path.join(targetDir, 'starx-logo.png');
 
-  // Transparent circular logo
-  const logoDestPng = path.join(targetDir, 'starx-logo.png');
-  await sharp(logoSourcePath)
-    .composite([{ input: circleSvg, blend: 'dest-in' }])
-    .png({ compressionLevel: 9, adaptiveFiltering: true })
-    .toFile(logoDestPng);
-  console.log('✓ Created:', logoDestPng);
+    fs.copyFileSync(transparentLogoPath, logoDestNoBg);
+    fs.copyFileSync(transparentLogoPath, logoDestTransparent);
+    fs.copyFileSync(transparentLogoPath, logoDestPng);
+    console.log('✓ Created transparent logos:', logoDestNoBg, logoDestTransparent, logoDestPng);
+  } else {
+    const logoSourcePath = path.join(sourceDir, 'StarX Logo.png');
+    console.log('Processing logo from:', logoSourcePath);
+    const logoMeta = await sharp(logoSourcePath).metadata();
+    console.log(`Logo metadata: ${logoMeta.width}x${logoMeta.height}`);
 
-  // Fallback JPG logos
-  const logoDestJpg = path.join(targetDir, 'starx-logo.jpg');
-  const logoFallbackJpg = path.join(targetDir, 'logo.jpg');
-  await sharp(logoSourcePath)
-    .jpeg({ quality: 92 })
-    .toFile(logoDestJpg);
-  fs.copyFileSync(logoDestJpg, logoFallbackJpg);
-  console.log('✓ Created:', logoDestJpg, 'and', logoFallbackJpg);
+    const cx = logoMeta.width / 2;
+    const cy = logoMeta.height / 2;
+    const radius = cx - 3;
+
+    const circleSvg = Buffer.from(
+      `<svg width="${logoMeta.width}" height="${logoMeta.height}">
+        <circle cx="${cx}" cy="${cy}" r="${radius}" fill="white" />
+      </svg>`
+    );
+
+    const logoDestPng = path.join(targetDir, 'starx-logo.png');
+    const logoDestNoBg = path.join(targetDir, 'logo-no-bg.png');
+    const logoDestTransparent = path.join(targetDir, 'starx-logo-transparent.png');
+
+    await sharp(logoSourcePath)
+      .composite([{ input: circleSvg, blend: 'dest-in' }])
+      .png({ compressionLevel: 9, adaptiveFiltering: true })
+      .toFile(logoDestPng);
+    fs.copyFileSync(logoDestPng, logoDestNoBg);
+    fs.copyFileSync(logoDestPng, logoDestTransparent);
+    console.log('✓ Created:', logoDestPng);
+  }
 
   // 2. Process Mobile View Background
   const mobileSourcePath = path.join(sourceDir, 'mobile view.png');

@@ -102,7 +102,7 @@ export default function Home() {
             {starxConfig.instagram?.url && (
               <motion.div variants={cardItemVariants}>
                 <SocialCard
-                  title={starxConfig.instagram.label}
+                  title={`${starxConfig.instagram.platform} - ${starxConfig.instagram.displayName}`}
                   subtitle={starxConfig.instagram.username}
                   href={starxConfig.instagram.url}
                   ariaLabel="Open StarX Live on Instagram"
@@ -116,7 +116,7 @@ export default function Home() {
             {starxConfig.facebook?.url && (
               <motion.div variants={cardItemVariants}>
                 <SocialCard
-                  title={starxConfig.facebook.label}
+                  title={`${starxConfig.facebook.platform} - ${starxConfig.facebook.displayName}`}
                   subtitle={starxConfig.facebook.username}
                   href={starxConfig.facebook.url}
                   ariaLabel="Open StarX Live Facebook page"
@@ -130,7 +130,7 @@ export default function Home() {
             {starxConfig.youtube?.url && (
               <motion.div variants={cardItemVariants}>
                 <SocialCard
-                  title={starxConfig.youtube.label}
+                  title={`${starxConfig.youtube.platform} - ${starxConfig.youtube.displayName}`}
                   subtitle={starxConfig.youtube.username}
                   href={starxConfig.youtube.url}
                   ariaLabel="Open StarX Live YouTube channel"

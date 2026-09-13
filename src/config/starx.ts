@@ -1,5 +1,6 @@
 export interface SocialAccount {
-  label: string;
+  platform: string;
+  displayName: string;
   username: string;
   url: string;
 }
@@ -52,20 +53,23 @@ export const starxConfig: StarXConfig = {
   backgroundPcImage: "/images/starx/starx-pc-background.webp",
 
   instagram: {
-    label: "Instagram",
+    platform: "Instagram",
+    displayName: "StarX Live Band",
     username: "@starxliveband",
     url: "https://www.instagram.com/starxliveband/",
   },
 
   facebook: {
-    label: "Facebook",
-    username: "StarX Live",
-    url: "https://www.facebook.com/share/19CGxzsqPj/",
+    platform: "Facebook",
+    displayName: "StarX LiveBand",
+    username: "@starxliveband",
+    url: "https://www.facebook.com/starxliveband",
   },
 
   youtube: {
-    label: "YouTube",
-    username: "@starxlive",
+    platform: "YouTube",
+    displayName: "StarX Live Band",
+    username: "@starxliveband",
     url: "https://youtube.com/@starxlive",
   },
 
